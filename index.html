@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<!--Jackson Hinks - 5/4/2026-->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusFlow Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="images/checkmark.png">
+</head>
+<body>
+    <header class="page-header">
+        <nav class="nav-bar">
+            <a class="site-name" href="index.html">FocusFlow</a>
+            <div class="nav-links">
+                <a href="#tasks">Tasks</a>
+                <a href="#summary">Summary</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <p class="small-heading">Final Web App Project</p>
+            <h1>Task Manager with Categories</h1>
+            <p>
+                FocusFlow is a browser-based task manager built to organize school, work,
+                personal, and creative responsibilities in one place. Users can add tasks,
+                update progress, filter the task board, and keep their list saved between visits.
+            </p>
+        </section>
+    </header>
+
+    <main>
+        <section id="summary" class="stats-section" aria-label="Task summary">
+            <article class="stat-box">
+                <span>Total Tasks</span>
+                <strong id="total-count">0</strong>
+            </article>
+
+            <article class="stat-box">
+                <span>Active Tasks</span>
+                <strong id="active-count">0</strong>
+            </article>
+
+            <article class="stat-box">
+                <span>Completed</span>
+                <strong id="completed-count">0</strong>
+            </article>
+
+            <article class="stat-box">
+                <span>Due Soon</span>
+                <strong id="due-soon-count">0</strong>
+            </article>
+        </section>
+
+        <section class="progress-card">
+            <div class="progress-info">
+                <div>
+                    <h2>Progress Overview</h2>
+                    <p>Completion updates automatically as tasks are checked off.</p>
+                </div>
+                <p id="progress-label">0% complete</p>
+            </div>
+            <div class="progress-bar" aria-label="Task completion progress">
+                <div id="progress-fill"></div>
+            </div>
+        </section>
+
+        <section id="tasks" class="app-grid">
+            <section class="panel form-panel">
+                <h2 id="form-heading">Add a New Task</h2>
+                <p class="section-note">
+                    Enter the main task details below. The title and due date are required so the task can be tracked clearly.
+                </p>
+
+                <form id="task-form">
+                    <label for="task-title">Task Title</label>
+                    <input type="text" id="task-title" maxlength="70" placeholder="Example: Finish JavaScript final project">
+
+                    <label for="task-category">Category</label>
+                    <select id="task-category">
+                        <option value="School">School</option>
+                        <option value="Work">Work</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Creative">Creative</option>
+                    </select>
+
+                    <label for="task-priority">Priority</label>
+                    <select id="task-priority">
+                        <option value="Low">Low</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="High">High</option>
+                    </select>
+
+                    <label for="task-due">Due Date</label>
+                    <input type="date" id="task-due">
+
+                    <label for="task-note">Notes</label>
+                    <textarea id="task-note" rows="4" placeholder="Add instructions, reminders, or extra details."></textarea>
+
+                    <p id="form-message" class="message" aria-live="polite"></p>
+
+                    <div class="button-row">
+                        <button type="submit" id="save-button">Add Task</button>
+                        <button type="button" id="cancel-button" class="secondary-button hidden">Cancel Edit</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="panel list-panel">
+                <div class="list-heading">
+                    <div>
+                        <h2>Task Board</h2>
+                        <p class="section-note">
+                            Use the controls to search, filter, sort, complete, edit, or remove tasks from the board.
+                        </p>
+                    </div>
+                    <button type="button" id="clear-button" class="secondary-button">Clear Completed</button>
+                </div>
+
+                <div class="controls">
+                    <label for="search-box">Search</label>
+                    <input type="search" id="search-box" placeholder="Search by title or notes">
+
+                    <label for="status-filter">Status</label>
+                    <select id="status-filter">
+                        <option value="All">All Tasks</option>
+                        <option value="Active">Active</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Due Soon">Due Soon</option>
+                    </select>
+
+                    <label for="category-filter">Category</label>
+                    <select id="category-filter">
+                        <option value="All">All Categories</option>
+                        <option value="School">School</option>
+                        <option value="Work">Work</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Creative">Creative</option>
+                    </select>
+
+                    <label for="sort-select">Sort</label>
+                    <select id="sort-select">
+                        <option value="newest">Newest First</option>
+                        <option value="due">Due Date</option>
+                        <option value="priority">Priority</option>
+                    </select>
+                </div>
+
+                <!--
+                
+            ⣀⣀⣤⠤⠤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⡠⠚⢳⠖⠋⠁⠀⠀⠀⠀⠀⠀⠉⠱⠖⠉⠳⡄⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⡸⠁⠀⠈⣠⠤⣄⡀⠀⠀⠀⣀⣀⡀⠀⢠⠀⠀⠸⡄⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⡇⠀⢀⡜⠀⣤⠀⢱⠤⢤⡎⠁⡀⠈⣦⢼⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠙⠲⡾⠻⣄⣀⡴⠚⠃⠀⢧⡀⠁⣀⠏⠘⠦⢴⡞⠁⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢠⠎⠀⠀⢀⠉⢧⣀⣀⣠⠇⠉⠉⣅⠀⠀⠀⠈⡇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⡎⠀⠀⢠⡋⠓⠒⠶⠶⠒⠒⠚⠉⠀⠀⠀⠀⠀⢹⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠰⡇⠀⠀⠀⢱⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡼⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢇⠀⠀⡔⠋⠁⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⢀⡇⠀⠀⠀⠀
+⠀⠀⠀⠀⠘⢆⠘⣇⠀⠀⢀⣄⠀⠀⠀⢸⠀⠀⠀⠀⠀⢸⠃⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⡗⠎⠙⠋⠁⠈⠓⠲⠒⠁⠀⠀⠀⠀⠀⣼⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣼⣷⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣴⣿⣿⣇⠀⠀⠀⠀⠀
+⠀⠀⣀⠴⠊⠙⢿⣿⣿⣿⣷⣶⣶⣶⣶⣿⣿⣿⣿⣿⠟⠋⠈⠳⢄⠀⠀⠀
+⢀⡞⠁⠀⡀⡄⠀⠈⠙⡟⠿⠿⠿⠿⠿⠿⠛⠋⠉⠀⠀⠀⠀⠀⠀⠑⢄⠀⠀
+
+                -->
+
+                <p id="board-message" class="message" aria-live="polite"></p>
+                <div id="task-list" class="task-list"></div>
+            </section>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>FocusFlow Task Manager | HTML, CSS, JavaScript, and localStorage</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
